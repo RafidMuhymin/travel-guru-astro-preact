@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+#header {
+  > div {
+    a {
+      width: 7em;
+      img {
+        width: 7em;
+      }
+    }
+  }
+}
