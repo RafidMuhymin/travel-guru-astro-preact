@@ -29,6 +29,7 @@ const {title} = Astro.props
                 <a href="/create-account-shot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">CAShot</a>
             </div>
         </div>
+        <button onclick="navigate('/homeshot')">HomeShot</button>
         <a class="p-2 mx-2" href="/home">Home</a>
         <a class="p-2 mx-2" href="/login">Login</a>
         <a class="p-2 mx-2" href="/register">Register</a>
@@ -40,34 +41,54 @@ const {title} = Astro.props
     </main>
 </body>
 <script>
-console.log('Hello World!')
-        const links = document.querySelectorAll('a[href^="/"')
-        console.log(links)
-        links.forEach(element => {
-            element.addEventListener('mouseover', (e) => {
-                const {href} = e.target
-                const link = document.querySelector('link[href="'+href+'"]')
-                if(!link) {
-                    const prefetchLink = document.createElement('link')
-                    prefetchLink.href = href
-                    prefetchLink.rel = "prefetch"
-                    document.head.appendChild(prefetchLink)
-                }
-            })
-            element.addEventListener('click', (e) => {
-                e.preventDefault()
-                console.log(e.target.href)
-                fetch(e.target.href).then(
-                    res => res.text()
-                ).then(
-                   html => {
-                        const firstIndex = html.indexOf("<head>");
-                        const lastIndex = html.indexOf("</html>");
-                        const htmlElement = document.querySelector("html");
-                        htmlElement.innerHTML = html.substring(firstIndex, lastIndex);
-                   }
-                )
-            })
-        });
+  const spafy = () => {
+    const links = document.querySelectorAll('a[href^="/"');
+    links.forEach((element) => {
+      element.addEventListener("mouseover", (e) => {
+        const { href } = e.target;
+        const link = document.querySelector('link[href="' + href + '"]');
+        if (!link) {
+          const prefetchLink = document.createElement("link");
+          prefetchLink.href = href;
+          prefetchLink.rel = "prefetch";
+          document.head.appendChild(prefetchLink);
+        }
+      });
+      element.addEventListener("click", (e) => {
+        if (!window.event.ctrlKey) {
+            e.preventDefault();
+            if (location.href !== e.target.href) {
+            fetch(e.target.href)
+            .then((res) => res.text())
+            .then((html) => {
+            const parser = new DOMParser();
+            const dom = parser.parseFromString(html, "text/html");
+            const pageHTML = dom.querySelector("html").innerHTML;
+            const pageTitle = dom.querySelector("title").innerText;
+            const htmlElement = document.querySelector("html");
+            htmlElement.innerHTML = pageHTML;
+            history.pushState({}, pageTitle, e.target.href);
+            spafy();
+            });
+            }
+        }
+      });
+    });
+  };
+  spafy();
+  window.navigate = (href) => {
+    fetch(href)
+    .then((res) => res.text())
+    .then((html) => {
+    const parser = new DOMParser();
+    const dom = parser.parseFromString(html, "text/html");
+    const pageHTML = dom.querySelector("html").innerHTML;
+    const pageTitle = dom.querySelector("title").innerText;
+    const htmlElement = document.querySelector("html");
+    htmlElement.innerHTML = pageHTML;
+    history.pushState({}, pageTitle, href);
+    spafy();
+    });
+  }
 </script>
 </html>
