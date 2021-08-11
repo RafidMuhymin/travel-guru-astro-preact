@@ -1,6 +1,4 @@
-import { h } from "preact";
-
-export default function App() {
+<script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       entry.isIntersecting && createPrefetchLink(entry.target);
@@ -28,9 +26,9 @@ export default function App() {
         .then((html) => {
           const doc = new DOMParser().parseFromString(html, "text/html");
           document.documentElement.replaceWith(doc.documentElement);
-          Array.prototype.foreach.call(document.scripts, (script) => {
+          for (const script of document.scripts) {
             eval(script.innerHTML);
-          });
+          }
           history.pushState({}, doc.title, href);
         });
     }
@@ -45,5 +43,4 @@ export default function App() {
       document.head.appendChild(prefetchLink);
     }
   };
-  return <h1>Hello World!</h1>;
-}
+</script>

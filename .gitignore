@@ -55,6 +55,7 @@ typings/
 .env*
 
 # astro files
+dist/
 
 # Mac files
 .DS_Store
