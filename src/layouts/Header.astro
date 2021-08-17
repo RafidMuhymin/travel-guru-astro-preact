@@ -1,0 +1,24 @@
+<header id="header" class="p-3 flex flex-row items-center justify-between">
+    <div>
+        <a href="/" >
+            <img src="/logo.png" alt="Travel Guru Brand Logo">
+        </a>
+    </div>
+    <nav>
+      <div class="dropdown relative inline-block p-2 mx-2">
+            <button class="bg-[#04aa6d]  text-white p-2 border-0">Dropdown</button>
+            <div class="hidden absolute bg-[#f1f1f1] min-w-[160px] z-[1]">
+                <a href="/homeshot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">HomeShot</a>
+                <a href="/bookingshot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">BookingShot</a>
+                <a href="/loginshot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">LoginShot</a>
+                <a href="/searchshot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">SearchShot</a>
+                <a href="/create-account-shot" class="text-black no-underline block py-[12px] px-[16px] hover:bg-[#ddd]">CAShot</a>
+            </div>
+        </div>
+        <button onclick="fetchHTML('/homeshot')">HomeShot</button>
+        <a class="p-2 mx-2" href="/home">Home</a>
+        <a class="p-2 mx-2" href="/login">Login</a>
+        <a class="p-2 mx-2" href="/register">Register</a>
+        <a class="p-2 mx-2" href="/booking">Booking</a>
+    </nav>
+</header>
