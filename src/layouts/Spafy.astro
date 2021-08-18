@@ -61,7 +61,7 @@
                 const doc = new DOMParser().parseFromString(html, "text/html");
                 d.documentElement.replaceWith(doc.documentElement);
                 for (const script of d.scripts) {
-                  eval(script.innerHTML);
+                  new Function(script.textContent)()
                 }
                 history.pushState({}, d.title, href);
               });
