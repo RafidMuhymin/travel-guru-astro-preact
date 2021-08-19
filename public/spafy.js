@@ -28,7 +28,7 @@
         )
         .forEach((anchor) => {
           anchor.addEventListener("click", (e) => {
-            if (!w.event.ctrlKey) {
+            if (!event.ctrlKey) {
               e.preventDefault();
               navigate(anchor.href);
             }
