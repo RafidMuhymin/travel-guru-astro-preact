@@ -1,9 +1,17 @@
 ((w, d) => {
   requestIdleCallback(
-    () => {
+    async () => {
+      const c = await caches.open("spafy");
+      c.match("/homeshot").then(({ headers }) => {
+        for (const key of headers) {
+          console.log(key);
+        }
+      });
+
       w.observedHrefs || (w.observedHrefs = []);
       w.fetchedHrefs || (w.fetchedHrefs = []);
       let prefetchTimeoutIDArray = [];
+      const cache = await caches.open("spafy");
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -43,12 +51,8 @@
           observedHrefs.push(anchor.href);
           observer.observe(anchor);
 
-          const fetchHTML = (href) => {
-            if (fetchedHrefs.includes(href)) {
-              return;
-            }
-            fetchedHrefs.push(href);
-            fetch(href);
+          const fetchHTML = async (href) => {
+            (await cache.match(href)) || cache.put(href, await fetch(href));
           };
           anchor.addEventListener("mouseover", () => {
             fetchHTML(anchor.href);
@@ -65,7 +69,7 @@
           },
           1000
         );
-        fetch(location.href)
+        (cache.match(location.href) || fetch(location.href))
           .then((res) => res.text())
           .then((html) => {
             const doc = new DOMParser().parseFromString(html, "text/html");
@@ -98,12 +102,17 @@
         }
       };
 
-      w.prefetch = (href) => {
-        if (!d.querySelector('link[href="' + href + '"]')) {
+      w.prefetch = async (href) => {
+        if (
+          !d.querySelector('link[href="' + href + '"]') &&
+          !(await cache.match(href))
+        ) {
           const link = d.createElement("link");
           link.href = href;
           link.rel = "prefetch";
-          link.setAttribute("onload", "console.log('prefetched')");
+          link.onload = () => {
+            cache.add(href);
+          };
           d.head.appendChild(link);
         }
       };

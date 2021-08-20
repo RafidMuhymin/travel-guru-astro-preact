@@ -1,6 +1,7 @@
 ---
+  const fs = await import("fs");
+  const spa = fs.readFileSync("public/spafy.js")
   import Header from './Header.astro'
-  import Spafy from './Spafy.astro'
   const { title } = Astro.props
 ---
 
@@ -19,6 +20,6 @@
       <slot></slot>
     </main> 
 </body>
-<script src="/spafy.js"></script>
+{`<script>${spa}</script>`}
 </html>
 
