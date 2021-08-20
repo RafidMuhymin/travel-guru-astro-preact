@@ -1,17 +1,14 @@
 ((w, d) => {
   requestIdleCallback(
     async () => {
-      const c = await caches.open("spafy");
-      c.match("/homeshot").then(({ headers }) => {
-        for (const key of headers) {
-          console.log(key);
-        }
-      });
-
       w.observedHrefs || (w.observedHrefs = []);
       w.fetchedHrefs || (w.fetchedHrefs = []);
-      let prefetchTimeoutIDArray = [];
+      w.currentSession || caches.delete("spafy");
+      w.currentSession = true;
+
       const cache = await caches.open("spafy");
+
+      let prefetchTimeoutIDArray = [];
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -36,7 +33,7 @@
         )
         .forEach((anchor) => {
           anchor.addEventListener("click", (e) => {
-            if (!event.ctrlKey) {
+            if (!e.ctrlKey) {
               e.preventDefault();
               navigate(anchor.href);
             }
@@ -51,49 +48,46 @@
           observedHrefs.push(anchor.href);
           observer.observe(anchor);
 
-          const fetchHTML = async (href) => {
+          const callback = async (href) => {
             (await cache.match(href)) || cache.put(href, await fetch(href));
           };
           anchor.addEventListener("mouseover", () => {
-            fetchHTML(anchor.href);
+            callback(anchor.href);
           });
           anchor.addEventListener("touchstart", () => {
-            fetchHTML(anchor.href);
+            callback(anchor.href);
           });
         });
 
-      const constructPage = () => {
+      const constructPage = async () => {
         d.documentElement.animate(
           {
             opacity: [1, 0],
           },
           1000
         );
-        (cache.match(location.href) || fetch(location.href))
-          .then((res) => res.text())
-          .then((html) => {
-            const doc = new DOMParser().parseFromString(html, "text/html");
-            d.documentElement.replaceWith(doc.documentElement);
-            for (const script of d.scripts) {
-              const newScript = document.createElement("script");
-              newScript.textContent = script.textContent;
-              for (const attr of script.attributes) {
-                newScript.setAttribute(attr.name, attr.value);
-              }
-              script.replaceWith(newScript);
-            }
-            d.documentElement.animate(
-              {
-                opacity: [0, 1],
-              },
-              1000
-            );
-          });
+        const cachedPage =
+          (await cache.match(location.href)) || (await fetch(location.href));
+        const html = await cachedPage.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        d.documentElement.replaceWith(doc.documentElement);
+        for (const script of d.scripts) {
+          const newScript = document.createElement("script");
+          newScript.textContent = script.textContent;
+          for (const attr of script.attributes) {
+            newScript.setAttribute(attr.name, attr.value);
+          }
+          script.replaceWith(newScript);
+        }
+        d.documentElement.animate(
+          {
+            opacity: [0, 1],
+          },
+          1000
+        );
       };
 
-      w.addEventListener("popstate", () => {
-        constructPage();
-      });
+      w.addEventListener("popstate", constructPage, { once: true });
 
       w.navigate = (href) => {
         if (location.href !== href && location.pathname !== href) {
