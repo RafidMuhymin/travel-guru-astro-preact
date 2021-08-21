@@ -48,10 +48,12 @@
         });
 
       const constructPage = async () => {
+        w.onNavigate && onNavigate();
         const cachedPage = (await cache.match(l.href)) || (await fetch(l.href));
         const html = await cachedPage.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
         d.documentElement.replaceWith(doc.documentElement);
+        w.onRender && onRender();
         for (const script of d.scripts) {
           const newScript = document.createElement("script");
           newScript.textContent = script.textContent;
