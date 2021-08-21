@@ -1,4 +1,4 @@
-((w, d) => {
+((w, d, l) => {
   requestIdleCallback(
     async () => {
       w.observedHrefs || (w.observedHrefs = []);
@@ -26,7 +26,7 @@
       Array.from(d.links)
         .filter(
           (link) =>
-            link.hostname === location.hostname &&
+            link.host === l.host &&
             !link.hash &&
             !link.hasAttribute("download") &&
             link.target !== "_blank"
@@ -66,8 +66,7 @@
           },
           1000
         );
-        const cachedPage =
-          (await cache.match(location.href)) || (await fetch(location.href));
+        const cachedPage = (await cache.match(l.href)) || (await fetch(l.href));
         const html = await cachedPage.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
         d.documentElement.replaceWith(doc.documentElement);
@@ -90,7 +89,7 @@
       w.addEventListener("popstate", constructPage, { once: true });
 
       w.navigate = (href) => {
-        if (location.href !== href && location.pathname !== href) {
+        if (l.href !== href && l.pathname !== href) {
           history.pushState({}, d.title, href);
           constructPage();
         }
@@ -113,4 +112,4 @@
     },
     { timeout: 2000 }
   );
-})(this, this.document);
+})(this, this.document, this.location);
