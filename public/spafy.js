@@ -1,11 +1,8 @@
-window.spafy = {};
 ((w, d, l) => {
   requestIdleCallback(
     async () => {
-      w.observedHrefs || (w.observedHrefs = []);
-      w.fetchedHrefs || (w.fetchedHrefs = []);
-      w.currentSession || caches.delete("spafy");
-      w.currentSession = true;
+      w.cs || caches.delete("spafy");
+      w.cs = true;
 
       const cache = await caches.open("spafy");
 
@@ -32,32 +29,24 @@ window.spafy = {};
             !link.hasAttribute("download") &&
             link.target !== "_blank"
         )
-        .forEach((anchor) => {
+        .forEach(async (anchor) => {
+          const { href } = anchor;
           anchor.addEventListener("click", (e) => {
             if (!e.ctrlKey) {
               e.preventDefault();
-              navigate(anchor.href);
+              navigate(href);
             }
           });
 
-          if (
-            observedHrefs.includes(anchor.href) ||
-            navigator.connection.saveData
-          ) {
-            return;
-          }
-          observedHrefs.push(anchor.href);
-          observer.observe(anchor);
+          navigator.connection.saveData ||
+            (await cache.match(href)) ||
+            observer.observe(anchor);
 
-          const callback = async (href) => {
+          const callback = async () => {
             (await cache.match(href)) || cache.put(href, await fetch(href));
           };
-          anchor.addEventListener("mouseover", () => {
-            callback(anchor.href);
-          });
-          anchor.addEventListener("touchstart", () => {
-            callback(anchor.href);
-          });
+          anchor.onmouseover = callback;
+          anchor.ontouchstart = callback;
         });
 
       const constructPage = async () => {
@@ -107,4 +96,4 @@ window.spafy = {};
     },
     { timeout: 2000 }
   );
-})(this, this.document, this.location, this.spafy);
+})(this, this.document, this.location);
