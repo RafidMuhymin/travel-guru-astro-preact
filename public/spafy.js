@@ -3,9 +3,7 @@
     async () => {
       w.cs || caches.delete("spafy");
       w.cs = true;
-
       const cache = await caches.open("spafy");
-
       let prefetchTimeoutIDArray = [];
 
       const observer = new IntersectionObserver(
