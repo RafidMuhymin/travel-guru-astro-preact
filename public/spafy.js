@@ -1,3 +1,4 @@
+window.spafy = {};
 ((w, d, l) => {
   requestIdleCallback(
     async () => {
@@ -106,4 +107,4 @@
     },
     { timeout: 2000 }
   );
-})(this, this.document, this.location);
+})(this, this.document, this.location, this.spafy);
