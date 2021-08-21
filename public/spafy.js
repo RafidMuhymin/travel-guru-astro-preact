@@ -60,12 +60,6 @@
         });
 
       const constructPage = async () => {
-        d.documentElement.animate(
-          {
-            opacity: [1, 0],
-          },
-          1000
-        );
         const cachedPage = (await cache.match(l.href)) || (await fetch(l.href));
         const html = await cachedPage.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
