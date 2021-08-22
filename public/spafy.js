@@ -36,7 +36,7 @@
             }
           });
 
-          navigator.connection.saveData ||
+          (navigator.connection && navigator.connection.saveData) ||
             (await cache.match(href)) ||
             observer.observe(anchor);
 
