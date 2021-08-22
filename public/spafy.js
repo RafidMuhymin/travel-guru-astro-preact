@@ -53,9 +53,9 @@
         const html = await cachedPage.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
         d.documentElement.replaceWith(doc.documentElement);
-        w.onRender && onRender();
+        w.onMount && onMount();
         for (const script of d.scripts) {
-          const newScript = document.createElement("script");
+          const newScript = d.createElement("script");
           newScript.textContent = script.textContent;
           for (const attr of script.attributes) {
             newScript.setAttribute(attr.name, attr.value);
@@ -96,4 +96,4 @@
     },
     { timeout: 2000 }
   );
-})(this, this.document, this.location);
+})(this, document, location);
