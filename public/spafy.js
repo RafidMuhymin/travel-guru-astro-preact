@@ -36,16 +36,16 @@
             }
           });
 
-          const checkDataSaverAndCache = () => {
+          const detectDataSaverAndCache = async () => {
             return (
               (navigator.connection && navigator.connection.saveData) ||
               (await cache.match(href))
             );
           };
-          checkDataSaverAndCache() || observer.observe(anchor);
+          detectDataSaverAndCache() || observer.observe(anchor);
 
           const callback = async () => {
-            checkDataSaverAndCache() || cache.put(href, await fetch(href));
+            detectDataSaverAndCache() || cache.put(href, await fetch(href));
           };
           anchor.onmouseover = callback;
           anchor.ontouchstart = callback;
