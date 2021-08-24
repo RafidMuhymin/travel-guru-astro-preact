@@ -42,10 +42,12 @@
               (await cache.match(href))
             );
           };
-          detectDataSaverAndCache() || observer.observe(anchor);
+
+          (await detectDataSaverAndCache()) || observer.observe(anchor);
 
           const callback = async () => {
-            detectDataSaverAndCache() || cache.put(href, await fetch(href));
+            (await detectDataSaverAndCache()) ||
+              cache.put(href, await fetch(href));
           };
           anchor.onmouseover = callback;
           anchor.ontouchstart = callback;
