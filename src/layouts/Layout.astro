@@ -1,7 +1,11 @@
 ---
-  const fs = await import("fs");
+  import fs from "node:fs";
+  import Header from './Header.astro';
+
+  // import * as imagetools from "imagetools-core";
+  // console.log(sharp("../../public/logo.png"))
   const spa = fs.readFileSync("public/spafy.js")
-  import Header from './Header.astro'
+  
   const { title } = Astro.props
 ---
 
