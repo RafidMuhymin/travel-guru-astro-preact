@@ -1,0 +1,14 @@
+{
+  "name": "astro-spa",
+  "version": "0.0.7",
+  "description": "A component for Astro JS that turns a website into an SPA",
+  "exports": {
+    ".": "./Spa.astro"
+  },
+  "repository": "https://github.com/RafidMuhymin/astro-spa",
+  "author": "Rafid Muhymin",
+  "license": "MIT",
+  "keywords": [
+    "astro-component"
+  ]
+}
