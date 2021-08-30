@@ -1,11 +1,8 @@
 ---
   import fs from "node:fs";
   import Header from './Header.astro';
-
-  // import * as imagetools from "imagetools-core";
-  // console.log(sharp("../../public/logo.png"))
-  const spa = fs.readFileSync("public/spafy.js")
   
+  const spa = fs.readFileSync("public/spafy.js");
   const { title } = Astro.props
 ---
 
@@ -15,7 +12,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/astro.css">
     <style global lang="scss">
       @use "../../public/astro.scss";
     </style>
