@@ -1,7 +1,8 @@
 ---
-  import fs from "node:fs";
+  import { Spa } from "astro-spa"
   import Header from './Header.astro';
-  
+
+  import fs from "node:fs";
   const spa = fs.readFileSync("public/spafy.js");
   const { title } = Astro.props
 ---
@@ -23,6 +24,7 @@
       <slot></slot>
     </main> 
 </body>
-{`<script>${spa}</script>`}
+<!-- {`<script>${spa}</script>`} -->
+<Spa />
 </html>
 
