@@ -1,12 +1,12 @@
 {
   "dependencies": {
     "astro": "^0.20.3",
-    "astro-spa": "^0.2.0",
+    "astro-spa": "^0.2.1",
     "imagetools-core": "^2.7.6",
     "tailwindcss": "^2.2.7"
   },
   "scripts": {
     "start": "astro dev --verbose",
-    "build": "astro build --verbose && node unfounder.js"
+    "build": "astro build --verbose"
   }
 }

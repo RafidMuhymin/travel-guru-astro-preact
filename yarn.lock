@@ -982,10 +982,10 @@ astring@^1.7.4:
   resolved "https://registry.yarnpkg.com/astring/-/astring-1.7.5.tgz#a7d47fceaf32b052d33a3d07c511efeec67447ca"
   integrity sha512-lobf6RWXb8c4uZ7Mdq0U12efYmpD1UFnyOWVJPTa3ukqZrMopav+2hdNu0hgBF0JIBFK9QgrBDfwYvh3DFJDAA==
 
-astro-spa@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/astro-spa/-/astro-spa-0.2.0.tgz#9c37cfea569ff3ffa6df82fc8ce4e0bda5b40e56"
-  integrity sha512-q+oAaLi/ZJfi2207r4pN/O/OispsGDxfrYlbUAUTHimJTPBxSdy9BdXniN7z3Kjn2cwr1R+H+aZPZwJOZ3DO9w==
+astro-spa@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/astro-spa/-/astro-spa-0.2.1.tgz#48875e9f063addf93fc5f8c647d79cdcdd91dc9f"
+  integrity sha512-Da7eNCje1acScjEyWCtoJDhbNf1fGXEHZMqox2LqlOhfDvAnYoTdft/wuOuxoM5r3s5TAkJo7vjwKrYxgaOrnw==
 
 astro@^0.20.3:
   version "0.20.3"
