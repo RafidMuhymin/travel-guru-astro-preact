@@ -1,5 +1,5 @@
 ---
-  import { Spa } from "astro-spa"
+  // import { Spa } from "astro-spa"
   import Header from './Header.astro';
 
   import fs from "node:fs";
@@ -24,7 +24,7 @@
       <slot></slot>
     </main> 
 </body>
-<!-- {`<script>${spa}</script>`} -->
-<Spa />
+{`<script>${spa}</script>`}
+<!-- <Spa /> -->
 </html>
 
