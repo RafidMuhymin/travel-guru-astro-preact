@@ -982,15 +982,15 @@ astring@^1.7.4:
   resolved "https://registry.yarnpkg.com/astring/-/astring-1.7.5.tgz#a7d47fceaf32b052d33a3d07c511efeec67447ca"
   integrity sha512-lobf6RWXb8c4uZ7Mdq0U12efYmpD1UFnyOWVJPTa3ukqZrMopav+2hdNu0hgBF0JIBFK9QgrBDfwYvh3DFJDAA==
 
-astro-spa@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/astro-spa/-/astro-spa-0.2.1.tgz#48875e9f063addf93fc5f8c647d79cdcdd91dc9f"
-  integrity sha512-Da7eNCje1acScjEyWCtoJDhbNf1fGXEHZMqox2LqlOhfDvAnYoTdft/wuOuxoM5r3s5TAkJo7vjwKrYxgaOrnw==
+astro-spa@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/astro-spa/-/astro-spa-1.0.0.tgz#37569a1b0e30d97a9862e906e9130f4ca71e5bff"
+  integrity sha512-ilihzmKsg7V7B3eF5qA4HMnGjjPD9X8od38tijVahHT/cXgPJ3AexciQOcpEn3gsmuynE/6YqEa+inOtqHYRHA==
 
-astro@^0.20.3:
-  version "0.20.3"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-0.20.3.tgz#b8f75cd0ca98dd0af98a696f31ef6b7dcaefc7bd"
-  integrity sha512-PQBWylMIk7GyphtBTLpXnfrk5kJ7JHlXLdrlxqpt0O/0y/U+ATUu4WjuYDCuOBef7EKr63xni+ieZqJLP5qbnw==
+astro@^0.20.4:
+  version "0.20.4"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-0.20.4.tgz#15d4612367b5aea3702d982cb373ac3a44a7992a"
+  integrity sha512-X3NWn9jWCxx3QSABQuZmeCAYNNaR2LSgCd69SxsaODqa2+kdaB9eISGHBnrHvrF6XKApm4oSPOMVhJawyMh+7Q==
   dependencies:
     "@astrojs/markdown-support" "0.3.0"
     "@astrojs/parser" "0.20.2"

@@ -74,7 +74,7 @@
 
           intervalID = setInterval(() => {
             pbw += Math.random() * ((99.5 - pbw) / 10);
-            progressBar.style.width = `${pbw}vw`;
+            progressBar.style.width = pbw + "vw";
           }, 500);
         })();
 
@@ -83,7 +83,7 @@
         const doc = new DOMParser().parseFromString(html, "text/html");
 
         clearInterval(intervalID);
-        progressBar.animate({ width: [`${pbw}vw`, "100vw"] }, 100).onfinish =
+        progressBar.animate({ width: [pbw + "vw", "100vw"] }, 100).onfinish =
           () => {
             d.documentElement.replaceWith(doc.documentElement);
             for (const script of d.scripts) {

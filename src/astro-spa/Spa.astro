@@ -1,0 +1,81 @@
+---
+import fs from "node:fs";
+import { minify } from "terser";
+import buildScript from "./script.js";
+
+export interface props {
+  beautify: boolean;
+  cache: boolean;
+  containerSelector: string;
+  defaultAnimation: boolean;
+  delay: number;
+  external: boolean;
+  forceRequestIdleCallback: boolean;
+  highPriorityPrefetch: boolean;
+  ignores: string[];
+  limit: number;
+  localLinkDetector: boolean;
+  PPBColor: string;
+  prefetch: boolean;
+  prefetchUpgradation: boolean;
+  progressBar: boolean;
+  root: string;
+  rootMargin: string;
+  secondaryProgressBar: boolean;
+  SPBColor: string;
+  threshold: number;
+  timeout: number | false;
+}
+
+const {
+  beautify = false,
+  cache = true,
+  containerSelector = "",
+  defaultAnimation = true,
+  delay = 500,
+  external = false,
+  forceRequestIdleCallback = false,
+  highPriorityPrefetch = [],
+  ignores = 0,
+  limit = true,
+  localLinkDetector = true,
+  PPBColor = true,
+  prefetch = true,
+  prefetchUpgradation = "#42b3f5",
+  progressBar = "",
+  root = "",
+  rootMargin = false,
+  secondaryProgressBar = "#4248f5",
+  SPBColor = 0.25,
+  threshold = 2000,
+  timeout = false,
+} = Astro.props as props;
+
+const scriptContent = buildScript(
+  cache,
+  containerSelector,
+  defaultAnimation,
+  delay,
+  forceRequestIdleCallback,
+  highPriorityPrefetch,
+  ignores,
+  limit,
+  localLinkDetector,
+  PPBColor,
+  prefetch,
+  prefetchUpgradation,
+  progressBar,
+  root,
+  rootMargin,
+  secondaryProgressBar,
+  SPBColor,
+  threshold,
+  timeout,
+);
+
+const { code } = await minify(scriptContent, { format : { beautify } });
+
+external && fs.writeFileSync("public/spa.js", code);
+---
+
+{external ? <script src={Astro.resolve("/spa.js")}></script> : `<script>${code}</script>`}
